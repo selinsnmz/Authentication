@@ -6,7 +6,7 @@ import LoginForm from './components/loginForm';
 export default class App extends Component{
     render(){
         return(
-            <View>
+            <View style={styles.appContaier}>
                 <Banner text ='Authentication'/>
                 <LoginForm/>
             </View>
@@ -15,7 +15,8 @@ export default class App extends Component{
 }
 
 const styles = StyleSheet.create({
-    text:{
-        color: 'red'
+    appContaier:{
+        backgroundColor: '#F3F3F3',
+        flex: 1
     }
 })

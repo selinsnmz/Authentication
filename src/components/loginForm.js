@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Button  } from 'react-native';
+import {Input} from './common/input';
 
 export default class LoginForm extends Component{
     render(){
         return(
-            <View >
+            <View style={{padding: 30}}>
                 <View>
-                    <Text> Email </Text>
+                    <Input text='Email' inputPlaceHolder='Enter Email'/>
                 </View>
                 <View>
                     <Text> Password </Text>
