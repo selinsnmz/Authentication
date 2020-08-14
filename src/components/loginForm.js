@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Button  } from 'react-native';
+import firebase from 'firebase';
 import {Input} from './common/input';
 
 export default class LoginForm extends Component{
@@ -8,6 +9,19 @@ export default class LoginForm extends Component{
         password: '',
 
     }
+
+    onButtonClicked(){
+        const {email, password } = this.state;
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(() => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(() => {
+                 console.log('error');
+            });
+        });
+    }
+
     render(){
         return(
             <View style={{padding: 30}}>
@@ -33,7 +47,7 @@ export default class LoginForm extends Component{
                     />
                 </View>
                 <View  style={styles.buttonWrapper}>
-                    <Button color='#594484' title= 'LOGIN'/>
+                    <Button onPress={this.onButtonClicked.bind(this)} color='#594484' title= 'LOGIN'/>
                 </View>
             </View>
         )
