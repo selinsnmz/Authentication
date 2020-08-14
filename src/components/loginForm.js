@@ -32,8 +32,8 @@ export default class LoginForm extends Component{
                                         value={this.state.password}
                     />
                 </View>
-                <View>
-                    <Button title= 'LOGIN'/>
+                <View  style={styles.buttonWrapper}>
+                    <Button color='#594484' title= 'LOGIN'/>
                 </View>
             </View>
         )
@@ -41,5 +41,11 @@ export default class LoginForm extends Component{
 }
 
 const styles= StyleSheet.create({
-    
+    buttonWrapper: {
+        marginTop: 20,
+        height: 49,
+        borderRadius: 10,
+        fontSize: 20,
+        justifyContent: 'center'
+    }
 });
