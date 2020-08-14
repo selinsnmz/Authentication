@@ -7,12 +7,17 @@ export default class LoginForm extends Component{
     state = {
         email : '',
         password: '',
+        error: ''
 
     }
 
     onButtonClicked = () => {
         const {email, password } = this.state;
         console.log(email,password);
+
+        this.setState({
+            error: ''
+        });
 
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((result) => {
@@ -23,7 +28,6 @@ export default class LoginForm extends Component{
         })
         .catch((err) => {
             console.log('error', err)
-            alert("Kullanıcı bulunamadı")
             firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 console.log('result2', result);
@@ -31,12 +35,20 @@ export default class LoginForm extends Component{
             })
             .catch((error) => {
                 console.log('error', error);
-                alert("Kullanıcı oluşturulamadı")
+                this.setState({
+                    error: 'Authentication failed.'
+                })
             });
         });
     }
 
     render(){
+        const { error } = this.state;
+        const errorMsg = error ? (
+            <Text style={styles.errorStyle}> {error} </Text>
+        ) :
+        null;
+
         return(
             <View style={{padding: 30}}>
                 <View>
@@ -60,6 +72,7 @@ export default class LoginForm extends Component{
                         value={this.state.password}
                     />
                 </View>
+                {errorMsg}
                 <View  style={styles.buttonWrapper}>
                     <Button onPress={this.onButtonClicked} color='#594484' title= 'LOGIN'/>
                 </View>
@@ -75,5 +88,11 @@ const styles= StyleSheet.create({
         borderRadius: 10,
         fontSize: 20,
         justifyContent: 'center'
+    },
+    errorStyle: {
+        fontSize: 20,
+        color: 'red',
+        paddingTop: 5,
+        alignSelf: 'center'
     }
 });
